@@ -62,10 +62,12 @@ No frameworks. No shortcuts. Just clean fundamentals.
 
 ## 📁 Project Structure
 
-<img width="1918" height="996" alt="Screenshot 2025-12-29 021103" src="https://github.com/user-attachments/assets/7cee7105-c48d-43be-8874-1c68032fd227" />
+<img width="1910" height="993" alt="Screenshot 2025-12-29 021220" src="https://github.com/user-attachments/assets/6c0ea0c3-ee15-4f02-821a-9a0b72f3e83b" />
 
-<img width="1919" height="987" alt="Screenshot 2025-12-29 021159" src="https://github.com/user-attachments/assets/58db05fd-2f21-414e-8e93-4fa8c5edfcac" />
+<img width="1919" height="987" alt="Screenshot 2025-12-29 021159" src="https://github.com/user-attachments/assets/73895362-1678-4557-9bb8-0ff55b1be3e6" />
 
-<img width="1910" height="993" alt="Screenshot 2025-12-29 021220" src="https://github.com/user-attachments/assets/816eb796-4957-4507-b984-979feb7b4056" />
+<img width="1918" height="996" alt="Screenshot 2025-12-29 021103" src="https://github.com/user-attachments/assets/cb323480-506f-4f34-9cf6-cc41deaeb781" />
+
+
 
 
