@@ -1,4 +1,4 @@
-// --- Tailwind Configuration ---
+
 tailwind.config = {
     theme: {
         extend: {
@@ -17,7 +17,6 @@ tailwind.config = {
     }
 }
 
-// --- Application Logic ---
 const icons = {
     'temperature': '<svg class="icon w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 14.76V3.5a2.5 2.5 0 0 0-5 0v11.26a4.5 4.5 0 1 0 5 0z"></path></svg>',
     'blender': '<svg class="icon w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12h6"></path><path d="M11 3v4"></path><path d="M15.17 6H8.83l-1.38 8.8c-.14.9.55 1.7 1.45 1.7h6.19c.9 0 1.6-.8 1.45-1.7L15.17 6z"></path><path d="M12 22a4 4 0 0 0 4-4H8a4 4 0 0 0 4 4z"></path></svg>',
@@ -48,9 +47,7 @@ const recipes = [
         desc: "A decadent, restaurant-quality dessert with a liquid chocolate center. Prepared in under 30 minutes.",
         time: "27 Mins",
         difficulty: "Easy",
-        // Background Image
         image: "images/Lava-Cake-5.png",
-        // SEPARATE Download Image (Replace this URL with your stored file path, e.g., 'lava-cake-print.jpg')
         downloadUrl: "images/molten chocolate cake.PNG",
         chefNote: "The secret to a perfect lava cake is timing. Even one minute too long will turn the molten center into a sponge cake. Use high-quality chocolate with at least 60% cocoa for depth.",
         baseServings: 4,
@@ -78,7 +75,6 @@ const recipes = [
         time: "45 Mins + Chill",
         difficulty: "Medium",
         image: "images/Tiramisu.png",
-        // SEPARATE Download Image
         downloadUrl: "images/classic italian tiramisu.PNG",
         chefNote: "Do not over-soak the ladyfingers; a quick dip is all they need. Allow the dessert to set in the fridge for at least 6 hours for the flavors to meld perfectly.",
         baseServings: 6,
@@ -106,7 +102,6 @@ const recipes = [
         time: "1 Hr 20 Mins",
         difficulty: "Hard",
         image: "images/raspberry french.png",
-        // SEPARATE Download Image
         downloadUrl: "images/raspberry french macarons.PNG",
         chefNote: "Precision is key. Weigh ingredients to the gram. The 'macaronage' (folding) process is done when batter flows like molten lava.",
         baseServings: 12,
@@ -134,7 +129,6 @@ const recipes = [
         time: "1 Hr",
         difficulty: "Medium",
         image: "images/Lemon-Meringue-Tart-2.png",
-        // SEPARATE Download Image
         downloadUrl: "images/lemon meringue tart.PNG",
         chefNote: "For the silkiest curd, strain it through a fine mesh sieve. Toast the meringue just before serving for the best texture.",
         baseServings: 8,
@@ -162,7 +156,6 @@ const recipes = [
         time: "45 Mins",
         difficulty: "Medium",
         image: "images/Strawberry-Matcha-Cake.png",
-        // SEPARATE Download Image
         downloadUrl: "images/matcha swiss roll.PNG",
         chefNote: "Whip the egg whites only to soft peaks for a flexible cake that won't crack when rolled. Roll while warm.",
         baseServings: 8,
@@ -245,7 +238,6 @@ function loadRecipe(index) {
         else btn.classList.remove('active');
     });
 
-    // Use the Unsplash image for the background
     document.getElementById('hero-img').style.backgroundImage = `url('${r.image}')`;
     
     document.getElementById('hero-subtitle').innerText = r.subtitle;
@@ -376,7 +368,6 @@ function updateFocusStep() {
     const progress = ((currentStepIdx + 1) / r.steps.length) * 100;
     document.getElementById('focus-progress').style.width = `${progress}%`;
 
-    // Button Logic
     const nextBtn = document.getElementById('btn-next-step');
     if (currentStepIdx === r.steps.length - 1) {
         nextBtn.innerHTML = 'Finish <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
@@ -384,7 +375,6 @@ function updateFocusStep() {
         nextBtn.innerHTML = 'Next <span class="hidden md:inline">Step</span> <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>';
     }
 
-    // Timer Logic
     const timerContainer = document.getElementById('focus-timer-container');
     if (step.hasTimer) {
         timerContainer.classList.remove('hidden');
@@ -431,7 +421,6 @@ function prevStep() {
     }
 }
 
-// --- TIMER LOGIC ---
 function toggleFocusTimer() {
     if (isTimerRunning) {
         clearInterval(timerInterval);
@@ -459,8 +448,7 @@ function updateTimerText(seconds) {
     document.getElementById('focus-timer-text').innerText = isTimerRunning ? text : `Start ${text} Timer`;
 }
 
-// --- NEW IMPROVED IMAGE DOWNLOAD LOGIC ---
-// This function uses fetch to get the image blob, avoiding cross-origin download issues
+
 async function downloadRecipeImage() {
     const r = recipes[currentRecipeIdx];
     const btnText = document.getElementById('download-text');
@@ -468,32 +456,25 @@ async function downloadRecipeImage() {
     const btn = document.getElementById('download-btn');
     
     try {
-        // Visual feedback
         btnText.innerText = "Downloading...";
         btn.classList.add('opacity-50', 'cursor-not-allowed');
-        
-        // 1. Fetch the image as a blob
-        // CHANGED: Now uses r.downloadUrl instead of r.image
+
         const response = await fetch(r.downloadUrl);
         if (!response.ok) throw new Error('Network response was not ok');
         
         const blob = await response.blob();
         
-        // 2. Create a local object URL
         const url = window.URL.createObjectURL(blob);
         
-        // 3. Create link and click it
         const link = document.createElement('a');
         link.href = url;
         
-        // Create a filename from title. Unsplash URLs don't have nice extensions sometimes, so we default to jpg
         const extension = 'jpg';
         link.download = `${r.title.replace(/\s+/g, '_')}_Print.${extension}`;
         
         document.body.appendChild(link);
         link.click();
         
-        // 4. Cleanup
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
         
@@ -501,8 +482,8 @@ async function downloadRecipeImage() {
         console.error('Download failed:', error);
         alert('Could not download the image. It might be blocked by the browser or the connection is unstable.');
     } finally {
-        // Reset button
         btnText.innerText = originalText;
         btn.classList.remove('opacity-50', 'cursor-not-allowed');
     }
+
 }
